@@ -209,7 +209,8 @@
   .rsvp-deadline{font-family:'Bodoni Moda',serif;font-style:italic;font-size:15px;color:var(--olive);margin-top:14px;}
 
   /* ───────── MUSIC ───────── */
-  #yt{position:fixed;left:-9999px;top:0;width:1px;height:1px;opacity:0;pointer-events:none;}
+  #yt{position:fixed;left:0;bottom:0;width:200px;height:200px;opacity:.01;pointer-events:none;z-index:-1;overflow:hidden;}
+  #yt iframe{width:200px;height:200px;}
   #musicToggle{
     position:fixed;right:16px;bottom:16px;z-index:900;
     display:none;align-items:center;gap:9px;cursor:pointer;
@@ -439,6 +440,8 @@ const CONFIG = {
 
   // música (YouTube)
   youtubeId: 'jK6JQSPFzPM',
+  // opcional: arquivo de áudio na pasta (ex: 'midia/musica.mp3'). Se preenchido, tem prioridade sobre o YouTube.
+  musicaArquivo: '',
 
   // versículo
   versiculo:    'Para que todos vejam, e saibam, e considerem, e juntamente entendam que a mão do Senhor fez isto.',
@@ -504,30 +507,52 @@ const MANUAL = [
     '<a class="btn-fill btn-wa" href="'+CONFIG.rsvpLink+'" target="_blank" rel="noopener">'+waIcon+'Confirmar presença</a>';
 })();
 
-/* ─── MÚSICA (YouTube oculto) ─── */
+/* ─── MÚSICA ───
+   Navegadores não deixam tocar som antes do primeiro toque do convidado.
+   Por isso: o vídeo começa a tocar MUDO assim que a página carrega e, no primeiro
+   toque (o "toque para abrir"), o som é ligado — a música já sai tocando. */
 const musicToggle=document.getElementById('musicToggle');
-let player=null, playerReady=false, wantPlay=false, playing=false;
-(function(){const s=document.createElement('script');s.src='https://www.youtube.com/iframe_api';document.head.appendChild(s);})();
-window.onYouTubeIframeAPIReady=function(){
-  player=new YT.Player('ytPlayer',{
-    width:1,height:1,videoId:CONFIG.youtubeId,
-    playerVars:{autoplay:0,controls:0,loop:1,playlist:CONFIG.youtubeId,playsinline:1,rel:0},
-    events:{
-      onReady:()=>{playerReady=true;player.setVolume(85);if(wantPlay)player.playVideo();},
-      onStateChange:e=>setPlaying(e.data===YT.PlayerState.PLAYING)
-    }
-  });
-};
+let player=null, playerReady=false, wantPlay=false, playing=false, audioEl=null;
 function setPlaying(p){
   playing=p;musicToggle.classList.toggle('playing',p);
   document.getElementById('iconPlay').style.display=p?'none':'block';
   document.getElementById('iconPause').style.display=p?'block':'none';
 }
-function playMusic(){wantPlay=true;if(playerReady)player.playVideo();}
-musicToggle.addEventListener('click',()=>{
-  if(!playerReady)return;
-  if(playing){wantPlay=false;player.pauseVideo();}else playMusic();
-});
+if(CONFIG.musicaArquivo){
+  audioEl=new Audio(CONFIG.musicaArquivo);audioEl.loop=true;audioEl.preload='auto';audioEl.volume=.85;
+  audioEl.addEventListener('play',()=>setPlaying(true));
+  audioEl.addEventListener('pause',()=>setPlaying(false));
+}else{
+  const s=document.createElement('script');s.src='https://www.youtube.com/iframe_api';document.head.appendChild(s);
+  window.onYouTubeIframeAPIReady=function(){
+    player=new YT.Player('ytPlayer',{
+      width:200,height:200,videoId:CONFIG.youtubeId,
+      playerVars:{autoplay:1,mute:1,controls:0,loop:1,playlist:CONFIG.youtubeId,playsinline:1,rel:0,disablekb:1,fs:0,iv_load_policy:3},
+      events:{
+        onReady:()=>{playerReady=true;player.mute();player.playVideo();if(wantPlay)unmuteYT();},
+        onStateChange:e=>{
+          const st=e.data;
+          if(st===YT.PlayerState.PLAYING) setPlaying(wantPlay&&!player.isMuted());
+          else if(st===YT.PlayerState.PAUSED) setPlaying(false);
+          else if(st===YT.PlayerState.ENDED){player.seekTo(0);player.playVideo();}
+        }
+      }
+    });
+  };
+}
+function unmuteYT(){
+  player.unMute();player.setVolume(85);player.playVideo();
+  setTimeout(()=>{if(player.getPlayerState&&player.getPlayerState()===YT.PlayerState.PLAYING&&!player.isMuted())setPlaying(true);},400);
+}
+function playMusic(){
+  wantPlay=true;
+  if(audioEl){const pr=audioEl.play();if(pr&&pr.catch)pr.catch(()=>{});return;}
+  if(playerReady)unmuteYT();
+}
+function pauseMusic(){wantPlay=false;if(audioEl)audioEl.pause();else if(playerReady)player.pauseVideo();setPlaying(false);}
+musicToggle.addEventListener('click',()=>{playing?pauseMusic():playMusic();});
+/* qualquer primeiro toque na página também liga a música */
+['pointerdown','touchend','click','keydown'].forEach(ev=>document.addEventListener(ev,function(){if(!wantPlay)playMusic();},{once:true,passive:true}));
 
 /* ─── SPLASH: folhas e pétalas caindo ─── */
 (function(){
