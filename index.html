@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Thayná &amp; Cleveson — Casamento</title>
+<meta name="description" content="Thayná & Cleveson · 13 de Dezembro de 2026 · Você é nosso convidado.">
+<meta property="og:title" content="Thayná & Cleveson — Casamento">
+<meta property="og:description" content="13 de Dezembro de 2026 · 15h · Toque para abrir o convite.">
+<meta property="og:image" content="midia/hero.jpg">
+<meta name="theme-color" content="#F7F5EE">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,500;0,6..96,600;1,6..96,400;1,6..96,500&family=Jost:wght@200;300;400;500&family=Great+Vibes&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --olive:#7C8552;
+    --olive-deep:#55603A;
+    --olive-soft:#CDD3B1;
+    --sage:#A9B38A;
+    --rose:#C99B8C;
+    --rose-soft:#EBD6CC;
+    --paper:#F8F6EF;
+    --paper-2:#EEF0E3;
+    --ink:#343A2A;
+    --ink-soft:#5E6452;
+    --line:#DDE1CC;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+  html{scroll-behavior:smooth;overflow-x:hidden;overscroll-behavior-x:none;}
+  body{
+    background:var(--paper);
+    color:var(--ink-soft);
+    font-family:'Jost',sans-serif;font-weight:300;
+    overflow-x:hidden;position:relative;
+  }
+  body::before{
+    content:'';position:fixed;inset:0;z-index:0;pointer-events:none;
+    background:
+      radial-gradient(120% 60% at 0% 0%, rgba(205,211,177,.35), transparent 60%),
+      radial-gradient(100% 50% at 100% 100%, rgba(235,214,204,.35), transparent 60%);
+  }
+  img{display:block;max-width:100%;}
+
+  /* ───────── MONOGRAMA (T · C) ───────── */
+  .mono{position:relative;display:flex;flex-direction:column;align-items:center;color:var(--olive-deep);}
+  .mono-ring{position:relative;width:var(--ms,170px);height:var(--ms,170px);display:flex;align-items:center;justify-content:center;}
+  .mono-ring svg.wreath{position:absolute;inset:0;width:100%;height:100%;}
+  .mono-letters{
+    font-family:'Great Vibes',cursive;font-size:calc(var(--ms,170px)*.36);line-height:1;color:var(--ink);
+    display:flex;align-items:center;gap:calc(var(--ms,170px)*.02);transform:translateY(2%);
+  }
+  .mono-letters .amp{font-family:'Bodoni Moda',serif;font-style:italic;font-size:.42em;color:var(--olive);margin:0 .08em;}
+  .splash-mono{--ms:min(62vw,240px);opacity:0;animation:fadeUp 1s .25s forwards;}
+  .footer-mono{--ms:150px;margin:0 auto 14px;}
+
+  /* ───────── SPLASH ───────── */
+  #splash{
+    position:fixed;inset:0;z-index:1000;background:var(--paper);
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    cursor:pointer;overflow:hidden;
+    transition:opacity 1s ease, transform 1s ease;
+  }
+  #splash.hide{opacity:0;transform:scale(1.03);}
+  #splash::after{content:'';position:absolute;inset:0;pointer-events:none;
+    background:radial-gradient(90% 55% at 50% 45%, rgba(205,211,177,.35), transparent 70%);}
+  #leaves{position:absolute;inset:0;z-index:1;pointer-events:none;}
+  .leaf-fall{position:absolute;opacity:0;animation:fall linear infinite;}
+  .splash-inner{position:relative;z-index:2;display:flex;flex-direction:column;align-items:center;}
+  .splash-names{
+    font-family:'Great Vibes',cursive;font-weight:400;
+    font-size:clamp(42px,12vw,64px);line-height:1;color:var(--ink);
+    text-align:center;margin-top:18px;opacity:0;animation:fadeUp 1s .55s forwards;
+  }
+  .splash-names .amp{color:var(--olive);font-size:.7em;margin:0 .12em;}
+  .splash-date{
+    margin-top:18px;font-size:12px;font-weight:300;letter-spacing:.55em;
+    color:var(--olive-deep);text-indent:.55em;opacity:0;animation:fadeUp 1s .85s forwards;text-transform:uppercase;
+  }
+  .splash-hint{
+    position:absolute;bottom:54px;z-index:2;font-size:14px;letter-spacing:.32em;
+    text-transform:uppercase;color:var(--olive-deep);font-weight:400;opacity:0;
+    animation:pulse 2.6s 1.6s infinite;text-indent:.32em;
+    border:1px solid var(--olive-soft);padding:14px 30px;border-radius:40px;background:rgba(248,246,239,.7);
+  }
+
+  /* ───────── MAIN ───────── */
+  #main{display:none;position:relative;z-index:1;}
+  #main.visible{display:block;}
+  .wrap{max-width:540px;margin:0 auto;position:relative;}
+  section{position:relative;}
+  .inner{padding:0 34px;}
+  .sec-label{
+    font-size:10.5px;letter-spacing:.45em;text-transform:uppercase;
+    color:var(--olive-deep);text-align:center;text-indent:.45em;
+  }
+  .sec-title{
+    font-family:'Bodoni Moda',serif;font-weight:400;
+    font-size:clamp(28px,8vw,40px);color:var(--ink);text-align:center;
+    line-height:1.08;margin-top:12px;
+  }
+  .sec-title .it{font-style:italic;color:var(--olive);}
+  .divider{display:flex;align-items:center;justify-content:center;gap:12px;margin:22px auto 0;max-width:240px;color:var(--olive);}
+  .divider .ln{height:1px;flex:1;background:linear-gradient(90deg,transparent,var(--olive-soft));}
+  .divider .ln.r{background:linear-gradient(90deg,var(--olive-soft),transparent);}
+  .divider svg{width:30px;height:14px;flex:0 0 auto;}
+
+  /* ───────── HERO ───────── */
+  .hero-photo{position:relative;width:100vw;left:50%;margin-left:-50vw;height:72vh;min-height:440px;max-height:760px;overflow:hidden;
+    -webkit-mask-image:linear-gradient(to bottom,#000 0%,#000 55%,rgba(0,0,0,.55) 76%,rgba(0,0,0,0) 96%);
+            mask-image:linear-gradient(to bottom,#000 0%,#000 55%,rgba(0,0,0,.55) 76%,rgba(0,0,0,0) 96%);}
+  .hero-photo img{width:100%;height:100%;object-fit:cover;object-position:46% 38%;filter:saturate(.92) contrast(.98);}
+  .hero-cap{position:relative;z-index:2;text-align:center;padding:0 28px;margin-top:-96px;}
+  .hero-pre{font-size:10.5px;letter-spacing:.45em;text-transform:uppercase;color:var(--olive-deep);text-indent:.45em;margin-bottom:10px;}
+  .hero-names{
+    font-family:'Great Vibes',cursive;font-weight:400;color:var(--ink);
+    font-size:clamp(56px,16vw,92px);line-height:.92;
+  }
+  .hero-names .amp{display:block;color:var(--olive);font-size:.55em;margin:.04em 0;}
+  .hero-sub{margin-top:18px;font-size:11.5px;letter-spacing:.4em;text-transform:uppercase;color:var(--olive-deep);text-indent:.4em;}
+
+  /* ───────── VERSE ───────── */
+  #verse{padding:74px 0 60px;text-align:center;}
+  .verse-q{
+    font-family:'Bodoni Moda',serif;font-style:italic;font-weight:400;
+    font-size:clamp(19px,5.2vw,25px);line-height:1.6;color:var(--ink);
+    max-width:430px;margin:0 auto;
+  }
+  .verse-ref{margin-top:24px;font-size:10.5px;letter-spacing:.4em;text-transform:uppercase;color:var(--olive);text-indent:.4em;}
+
+  /* ───────── CONVITE ───────── */
+  #convite{padding:16px 0 10px;text-align:center;}
+  .invite-note{font-size:14px;line-height:1.9;color:var(--ink-soft);max-width:400px;margin:28px auto 0;}
+  .photo-frame{margin:44px auto 0;width:min(84%,380px);padding:10px;background:#fff;border:1px solid var(--line);
+    box-shadow:0 26px 50px -34px rgba(52,58,42,.55);transform:rotate(-1.2deg);}
+  .photo-frame img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 28%;}
+
+  /* ───────── DAY / LOCATIONS ───────── */
+  #day{padding:70px 0 8px;}
+  .quickfacts{display:flex;justify-content:center;margin:40px 0 8px;}
+  .qf{flex:1;text-align:center;padding:0 8px;max-width:180px;}
+  .qf + .qf{border-left:1px solid var(--line);}
+  .qf .k{font-size:9.5px;letter-spacing:.34em;text-transform:uppercase;color:var(--olive-deep);}
+  .qf .v{font-family:'Bodoni Moda',serif;font-size:19px;color:var(--ink);margin-top:9px;line-height:1.25;}
+  .qf .v small{display:block;font-family:'Jost';font-size:11px;letter-spacing:.04em;color:var(--ink-soft);margin-top:3px;}
+
+  .place{margin-top:52px;}
+  .place-art{position:relative;width:100%;overflow:hidden;border-radius:4px;box-shadow:0 26px 50px -36px rgba(52,58,42,.6);}
+  .place-art img{width:100%;height:auto;}
+  .place-body{text-align:center;margin-top:24px;}
+  .place-tag{
+    display:inline-block;font-size:10px;letter-spacing:.42em;text-transform:uppercase;
+    color:#fff;background:var(--olive-deep);padding:7px 16px;text-indent:.42em;
+  }
+  .place-time{font-family:'Bodoni Moda',serif;font-style:italic;font-size:24px;color:var(--olive);margin-top:16px;}
+  .place-name{font-family:'Bodoni Moda',serif;font-size:23px;color:var(--ink);margin-top:8px;line-height:1.25;}
+  .place-addr{font-size:13px;line-height:1.7;color:var(--ink-soft);margin-top:12px;max-width:360px;margin-left:auto;margin-right:auto;}
+  .btn-line{
+    display:inline-flex;align-items:center;gap:9px;margin-top:20px;
+    font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--ink);
+    border:1px solid var(--ink);padding:12px 24px;text-decoration:none;text-indent:.26em;
+    transition:.35s;background:transparent;
+  }
+  .btn-line:hover{background:var(--ink);color:var(--paper);}
+  .btn-line svg{width:13px;height:13px;}
+  .place-divider{width:1px;height:60px;background:linear-gradient(var(--line),transparent,var(--line));margin:50px auto 0;}
+
+  /* ───────── COUNTDOWN ───────── */
+  #countdown{padding:78px 0;text-align:center;}
+  .cd-wrap{display:flex;justify-content:center;margin-top:40px;}
+  .cd-unit{flex:1;max-width:90px;}
+  .cd-unit + .cd-unit{border-left:1px solid var(--line);}
+  .cd-num{font-family:'Bodoni Moda',serif;font-weight:400;font-size:clamp(34px,11vw,48px);color:var(--ink);line-height:1;display:block;}
+  .cd-lbl{font-size:9.5px;letter-spacing:.3em;text-transform:uppercase;color:var(--olive-deep);margin-top:10px;display:block;}
+
+  /* ───────── MANUAL DO CONVIDADO ───────── */
+  #manual{padding:58px 0;}
+  .manual-card{
+    margin:34px auto 0;background:#fff;border-radius:22px;overflow:hidden;
+    box-shadow:0 24px 48px -36px rgba(52,58,42,.55);border:1px solid var(--line);
+  }
+  .mrow{display:flex;gap:16px;align-items:flex-start;padding:22px 20px;}
+  .mrow + .mrow{border-top:1px solid var(--line);}
+  .mrow .mi{flex:0 0 auto;width:50px;height:50px;border-radius:50%;background:var(--paper-2);border:1px solid var(--olive-soft);
+    color:var(--olive-deep);display:flex;align-items:center;justify-content:center;}
+  .mrow .mi svg{width:23px;height:23px;}
+  .mrow .mk{font-size:10px;letter-spacing:.3em;text-transform:uppercase;color:var(--olive-deep);margin-top:4px;}
+  .mrow .mv{font-family:'Bodoni Moda',serif;font-style:italic;font-size:16.5px;line-height:1.5;color:var(--ink);margin-top:6px;}
+  .mrow .mv b{font-style:normal;font-weight:500;}
+  .swatch{display:inline-block;width:20px;height:20px;border-radius:50%;vertical-align:-4px;margin-left:6px;border:1px solid #cfcfc6;background:#fff;position:relative;}
+  .swatch::after{content:'';position:absolute;left:50%;top:-2px;bottom:-2px;width:1px;background:#b85b4f;transform:rotate(45deg);}
+
+  /* ───────── GIFTS / RSVP ───────── */
+  #gifts,#rsvp{padding:58px 0;text-align:center;}
+  #rsvp{padding-bottom:44px;}
+  .gift-note,.rsvp-note{font-size:13.5px;line-height:1.85;color:var(--ink-soft);max-width:400px;margin:26px auto 0;}
+  .btn-fill{
+    display:inline-flex;align-items:center;gap:10px;margin-top:28px;
+    font-size:11px;letter-spacing:.26em;text-transform:uppercase;color:var(--paper);
+    background:var(--olive-deep);padding:15px 30px;text-decoration:none;text-indent:.26em;
+    transition:.35s;border:1px solid var(--olive-deep);cursor:pointer;
+  }
+  .btn-fill:hover{background:transparent;color:var(--olive-deep);}
+  .btn-fill svg{width:14px;height:14px;}
+  .btn-wa{background:#2e7d52;border-color:#2e7d52;color:#fff;}
+  .btn-wa:hover{background:transparent;color:#2e7d52;}
+  .btn-wa svg{width:17px;height:17px;}
+  .rsvp-deadline{font-family:'Bodoni Moda',serif;font-style:italic;font-size:15px;color:var(--olive);margin-top:14px;}
+
+  /* ───────── MUSIC ───────── */
+  #yt{position:fixed;left:-9999px;top:0;width:1px;height:1px;opacity:0;pointer-events:none;}
+  #musicToggle{
+    position:fixed;right:16px;bottom:16px;z-index:900;
+    display:none;align-items:center;gap:9px;cursor:pointer;
+    background:var(--paper);border:1px solid var(--olive);color:var(--olive-deep);
+    border-radius:40px;padding:9px 16px 9px 13px;
+    box-shadow:0 8px 24px rgba(85,96,58,.22);transition:.3s;
+    font-size:10px;letter-spacing:.2em;text-transform:uppercase;font-weight:400;
+  }
+  #musicToggle:hover{background:var(--olive);color:#fff;}
+  #musicToggle svg{width:14px;height:14px;flex-shrink:0;}
+  #musicToggle .bars{display:inline-flex;align-items:flex-end;gap:2px;height:12px;}
+  #musicToggle .bars i{width:2px;height:4px;background:currentColor;}
+  #musicToggle.playing .bars i{animation:eq 1s ease-in-out infinite;}
+  #musicToggle .bars i:nth-child(2){animation-delay:.2s}#musicToggle .bars i:nth-child(3){animation-delay:.4s}#musicToggle .bars i:nth-child(4){animation-delay:.1s}
+  #musicToggle .mt-label{white-space:nowrap;}
+
+  /* ───────── FOOTER ───────── */
+  footer{padding:60px 30px 90px;text-align:center;}
+  .footer-date{margin-top:6px;font-size:11px;letter-spacing:.4em;text-transform:uppercase;color:var(--olive-deep);text-indent:.4em;}
+  .footer-note{margin-top:18px;font-size:12px;color:var(--olive);font-style:italic;font-family:'Bodoni Moda',serif;}
+
+  /* ───────── REVEAL ───────── */
+  .reveal{opacity:0;transform:translateY(22px);transition:opacity 1s cubic-bezier(.2,.6,.2,1),transform 1s cubic-bezier(.2,.6,.2,1);}
+  .reveal.visible{opacity:1;transform:none;}
+  .reveal.d1{transition-delay:.12s}.reveal.d2{transition-delay:.24s}.reveal.d3{transition-delay:.36s}
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}
+  @keyframes pulse{0%,100%{opacity:0}50%{opacity:.9}}
+  @keyframes fall{0%{opacity:0;transform:translateY(0) rotate(0)}10%{opacity:.7}100%{opacity:0;transform:translateY(108vh) rotate(360deg)}}
+  @keyframes eq{0%,100%{height:4px}50%{height:12px}}
+
+  @media(max-width:380px){.inner{padding:0 22px}.qf .v{font-size:17px}.mrow{padding:20px 16px}}
+  @media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+</style>
+</head>
+<body>
+
+<!-- Ramo de oliveira reutilizável -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <symbol id="sprig" viewBox="0 0 60 28">
+      <path d="M2 14c14 0 30 0 56 0" stroke="currentColor" stroke-width=".9" fill="none"/>
+      <g fill="currentColor" opacity=".85">
+        <ellipse cx="14" cy="9.5" rx="5" ry="1.8" transform="rotate(-28 14 9.5)"/>
+        <ellipse cx="14" cy="18.5" rx="5" ry="1.8" transform="rotate(28 14 18.5)"/>
+        <ellipse cx="27" cy="9.5" rx="5" ry="1.8" transform="rotate(-28 27 9.5)"/>
+        <ellipse cx="27" cy="18.5" rx="5" ry="1.8" transform="rotate(28 27 18.5)"/>
+        <ellipse cx="40" cy="9.5" rx="5" ry="1.8" transform="rotate(-28 40 9.5)"/>
+        <ellipse cx="40" cy="18.5" rx="5" ry="1.8" transform="rotate(28 40 18.5)"/>
+      </g>
+      <circle cx="52" cy="14" r="2.2" fill="#C99B8C"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ════════ SPLASH ════════ -->
+<div id="splash">
+  <div id="leaves"></div>
+  <div class="splash-inner">
+    <div class="mono splash-mono" role="img" aria-label="Thayná & Cleveson">
+      <div class="mono-ring"><svg class="wreath" data-wreath viewBox="0 0 200 200"></svg>
+        <span class="mono-letters">T<span class="amp">&amp;</span>C</span></div>
+    </div>
+    <p class="splash-names" id="splashNames"></p>
+    <p class="splash-date" id="splashDate"></p>
+  </div>
+  <p class="splash-hint">toque para abrir</p>
+</div>
+
+<!-- ════════ MAIN ════════ -->
+<div id="main">
+ <div class="wrap">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-photo">
+      <img src="midia/hero.jpg" alt="Thayná e Cleveson">
+    </div>
+    <div class="hero-cap">
+      <p class="hero-pre">vamos nos casar</p>
+      <h1 class="hero-names" id="heroNames" aria-label="Thayná & Cleveson"></h1>
+      <p class="hero-sub" id="heroSub"></p>
+    </div>
+  </section>
+
+  <!-- VERSE -->
+  <section id="verse">
+    <div class="inner">
+      <p class="verse-q reveal" id="verseText"></p>
+      <p class="verse-ref reveal d1" id="verseRef"></p>
+    </div>
+  </section>
+
+  <!-- CONVITE -->
+  <section id="convite">
+    <div class="inner">
+      <p class="sec-label reveal">o convite</p>
+      <h2 class="sec-title reveal">Com a bênção de <span class="it">Deus</span></h2>
+      <div class="divider reveal"><span class="ln"></span><svg><use href="#sprig"/></svg><span class="ln r"></span></div>
+      <p class="invite-note reveal d1">e de suas famílias, Thayná e Cleveson convidam você para celebrar com eles o dia em que unirão suas vidas diante de Deus.</p>
+      <div class="photo-frame reveal d2"><img src="midia/casal.jpg" alt="Thayná e Cleveson" loading="lazy"></div>
+    </div>
+  </section>
+
+  <!-- DAY / LOCATIONS -->
+  <section id="day">
+    <div class="inner">
+      <p class="sec-label reveal">o grande dia</p>
+      <h2 class="sec-title reveal">Celebre <span class="it">conosco</span></h2>
+      <div class="divider reveal"><span class="ln"></span><svg><use href="#sprig"/></svg><span class="ln r"></span></div>
+
+      <div class="quickfacts reveal d1">
+        <div class="qf"><p class="k">Data</p><p class="v">13 de Dezembro<small>Domingo · 2026</small></p></div>
+        <div class="qf"><p class="k">Horário</p><p class="v">15h00<small>cerimônia</small></p></div>
+      </div>
+
+      <!-- Cerimônia -->
+      <div class="place reveal">
+        <div class="place-art"><img src="midia/local.jpg" alt="Local do casamento" loading="lazy"></div>
+        <div class="place-body">
+          <span class="place-tag">Cerimônia</span>
+          <p class="place-time">às 15h</p>
+          <p class="place-name" id="localNome"></p>
+          <p class="place-addr" id="localEnd"></p>
+          <a class="btn-line" id="mapCerimonia" target="_blank" rel="noopener">
+            <svg viewBox="0 0 24 24" fill="none"><path d="M12 2C8 2 5 5 5 9c0 5 7 13 7 13s7-8 7-13c0-4-3-7-7-7z" stroke="currentColor" stroke-width="1.3"/><circle cx="12" cy="9" r="2.4" stroke="currentColor" stroke-width="1.3"/></svg>
+            Ver no mapa
+          </a>
+        </div>
+      </div>
+
+      <div class="place-divider reveal"></div>
+
+      <!-- Recepção -->
+      <div class="place reveal">
+        <div class="place-body">
+          <span class="place-tag" style="background:var(--olive)">Recepção</span>
+          <p class="place-time">logo após</p>
+          <p class="place-name">No mesmo espaço</p>
+          <p class="place-addr">A recepção acontece no mesmo local da cerimônia.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- COUNTDOWN -->
+  <section id="countdown">
+    <div class="inner">
+      <p class="sec-label reveal">a contagem começou</p>
+      <h2 class="sec-title reveal">Falta <span class="it">pouco</span></h2>
+      <div class="cd-wrap reveal d1">
+        <div class="cd-unit"><span class="cd-num" id="cd-d">00</span><span class="cd-lbl">dias</span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-h">00</span><span class="cd-lbl">horas</span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-m">00</span><span class="cd-lbl">min</span></div>
+        <div class="cd-unit"><span class="cd-num" id="cd-s">00</span><span class="cd-lbl">seg</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MANUAL DO CONVIDADO -->
+  <section id="manual">
+    <div class="inner">
+      <p class="sec-label reveal">para tornar o dia perfeito</p>
+      <h2 class="sec-title reveal">Manual do <span class="it">Convidado</span></h2>
+      <div class="divider reveal"><span class="ln"></span><svg><use href="#sprig"/></svg><span class="ln r"></span></div>
+      <div class="manual-card reveal d1" id="manualList"></div>
+    </div>
+  </section>
+
+  <!-- GIFTS -->
+  <section id="gifts">
+    <div class="inner">
+      <p class="sec-label reveal">presentes</p>
+      <h2 class="sec-title reveal">Sua presença é o <span class="it">presente</span></h2>
+      <div class="divider reveal"><span class="ln"></span><svg><use href="#sprig"/></svg><span class="ln r"></span></div>
+      <p class="gift-note reveal d1">Se desejar nos presentear e fazer parte do início desta nova história, preparamos uma lista com muito carinho.</p>
+      <div class="reveal d2" id="giftAction"></div>
+    </div>
+  </section>
+
+  <!-- RSVP -->
+  <section id="rsvp">
+    <div class="inner">
+      <p class="sec-label reveal">confirmação de presença</p>
+      <h2 class="sec-title reveal">Você <span class="it">vem?</span></h2>
+      <div class="divider reveal"><span class="ln"></span><svg><use href="#sprig"/></svg><span class="ln r"></span></div>
+      <p class="rsvp-note reveal d1">Sua presença fará deste dia um momento ainda mais especial. Confirme pelo WhatsApp com um toque.</p>
+      <div class="reveal d2" id="rsvpAction"></div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="mono footer-mono" role="img" aria-label="Thayná & Cleveson">
+      <div class="mono-ring"><svg class="wreath" data-wreath viewBox="0 0 200 200"></svg>
+        <span class="mono-letters">T<span class="amp">&amp;</span>C</span></div>
+    </div>
+    <p class="footer-date" id="footerDate"></p>
+    <p class="footer-note">"...a mão do Senhor fez isto." · Isaías 41:20</p>
+  </footer>
+
+ </div><!-- /.wrap -->
+</div><!-- /#main -->
+
+<!-- player do YouTube (oculto) -->
+<div id="yt"><div id="ytPlayer"></div></div>
+
+<!-- controle flutuante da música -->
+<div id="musicToggle" title="Nossa música">
+  <span class="bars"><i></i><i></i><i></i><i></i></span>
+  <span class="mt-label">Nossa música</span>
+  <svg id="iconPlay" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+  <svg id="iconPause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 5h4v14H6zM14 5h4v14h-4z"/></svg>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════════
+   ⚙️  CONFIGURAÇÃO — edite somente este bloco
+   ════════════════════════════════════════════════════════════ */
+const CONFIG = {
+  noivos:    'Thayná & Cleveson',
+
+  dataEvento:'2026-12-13T15:00:00-03:00',   // contagem regressiva
+  dataTexto: '13 de Dezembro de 2026',
+
+  // local (cerimônia e recepção no mesmo espaço)
+  localNome: 'Cerimônia & Recepção',
+  localEnd:  'Toque no botão abaixo para abrir a localização no mapa.',   // ex: 'Rua X, 123 — Bairro<br>Cidade — PB'
+  mapCerimonia: 'https://maps.app.goo.gl/DHo4xdKxujtaLJYt6?g_st=ic',
+
+  // música (YouTube)
+  youtubeId: 'jK6JQSPFzPM',
+
+  // versículo
+  versiculo:    'Para que todos vejam, e saibam, e considerem, e juntamente entendam que a mão do Senhor fez isto.',
+  versiculoRef: 'Isaías 41:20',
+
+  // lista de presentes
+  presentesLink: 'https://casamento-ps53.listaideal.com.br/pt',
+
+  // 📱 WhatsApp para confirmação (apenas dígitos: 55 + DDD + número)
+  whatsappRsvp: '5583986377558'   // (83) 98637-7558
+};
+
+/* ════════════════════════════════════════════════════════════
+   A partir daqui é o funcionamento — não precisa mexer.
+   ════════════════════════════════════════════════════════════ */
+function txt(id,v){const e=document.getElementById(id);if(e)e.innerHTML=v;}
+const [n1,n2]=CONFIG.noivos.split(/\s*&\s*/);
+txt('splashNames',n1+' <span class="amp">&amp;</span> '+n2);
+txt('heroNames',n1+'<span class="amp">&amp;</span>'+n2);
+txt('splashDate','13 · 12 · 2026');
+txt('heroSub',CONFIG.dataTexto);
+txt('footerDate',CONFIG.dataTexto);
+txt('verseText','“'+CONFIG.versiculo+'”');
+txt('verseRef',CONFIG.versiculoRef);
+txt('localNome',CONFIG.localNome);
+txt('localEnd',CONFIG.localEnd);
+document.getElementById('mapCerimonia').href=CONFIG.mapCerimonia;
+
+/* ─── Monograma: guirlanda de oliveira ─── */
+document.querySelectorAll('[data-wreath]').forEach(svg=>{
+  let s='<circle cx="100" cy="100" r="84" fill="none" stroke="#CDD3B1" stroke-width=".8"/>';
+  const leaf=(a,side)=>{
+    const r=84, rad=a*Math.PI/180, x=100+r*Math.cos(rad), y=100+r*Math.sin(rad);
+    const rot=a+90+side*35;
+    return '<ellipse cx="'+x.toFixed(1)+'" cy="'+y.toFixed(1)+'" rx="7" ry="2.4" transform="rotate('+rot+' '+x.toFixed(1)+' '+y.toFixed(1)+')" fill="#7C8552" opacity=".8"/>';
+  };
+  // dois ramos que se encontram embaixo, abertos no topo
+  for(let a=110;a<=240;a+=13){s+=leaf(a,1);s+=leaf(a+6,-1);}
+  for(let a=70;a>=-60;a-=13){s+=leaf(a,-1);s+=leaf(a-6,1);}
+  [[100,186],[88,183],[112,183]].forEach(([x,y],i)=>{s+='<circle cx="'+x+'" cy="'+y+'" r="'+(i?3:4)+'" fill="#C99B8C"/>';});
+  svg.innerHTML=s;
+});
+
+/* ─── Manual do Convidado ─── */
+const ICONS = {
+  dress:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3l2 2.4L14 3"/><path d="M10 3c-.5 1.6-.4 3 .9 4.4M14 3c.5 1.6.4 3-.9 4.4"/><path d="M10.9 7.4C10.2 9.6 8.2 15 7.2 19.7c3 1.4 6.6 1.4 9.6 0C15.8 15 13.8 9.6 13.1 7.4"/></svg>',
+  suit:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a2.6 2.6 0 0 0-2.6 2.6"/><path d="M12 6.4 3.4 13a1.2 1.2 0 0 0 .7 2.2h15.8a1.2 1.2 0 0 0 .7-2.2L12 6.4z"/></svg>',
+  clock:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>',
+  check:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M8 12.4l2.7 2.7L16.2 9.4"/></svg>',
+  envelope:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="6" width="17" height="12" rx="1.6"/><path d="M3.8 7.2 12 12.8l8.2-5.6"/></svg>',
+  camera:'<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8h3l1.4-2h7.2L17 8h3a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1V9a1 1 0 0 1 1-1z"/><circle cx="12" cy="13" r="3.1"/></svg>'
+};
+const MANUAL = [
+  ['dress','Cor exclusiva da noiva','O <b>branco</b> é reservado somente à noiva — pedimos que os convidados não usem branco.<span class="swatch" aria-hidden="true"></span>'],
+  ['suit','Traje','Esporte fino.'],
+  ['clock','Pontualidade','A cerimônia começa às 15h. Chegue com antecedência para vivermos cada momento juntos.'],
+  ['check','Confirme sua presença','Sua confirmação nos ajuda a preparar tudo com carinho.'],
+  ['envelope','Convite intransferível','Este convite é pessoal e intransferível.'],
+  ['camera','Fotógrafos','Durante a cerimônia, não atrapalhe o trabalho dos fotógrafos.']
+];
+(function(){
+  const box=document.getElementById('manualList');
+  box.innerHTML=MANUAL.map(([ic,k,v])=>
+    '<div class="mrow"><span class="mi">'+ICONS[ic]+'</span><div><p class="mk">'+k+'</p><p class="mv">'+v+'</p></div></div>').join('');
+})();
+
+/* ─── Presentes ─── */
+(function(){
+  const giftSvg='<svg viewBox="0 0 24 24" fill="none"><path d="M20 7H4v5h16V7zM12 7v14M12 7c-2-4-6-4-6-1.5C6 7 9 7 12 7zm0 0c2-4 6-4 6-1.5C18 7 15 7 12 7zM5 12v8a1 1 0 001 1h12a1 1 0 001-1v-8" stroke="currentColor" stroke-width="1.3" stroke-linejoin="round"/></svg>';
+  document.getElementById('giftAction').innerHTML=
+    '<a class="btn-fill" href="'+CONFIG.presentesLink+'" target="_blank" rel="noopener">'+giftSvg+'Lista de presentes</a>';
+})();
+
+/* ─── Confirmação de presença (WhatsApp) ─── */
+(function(){
+  const waIcon='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.16l-.3-.18-3 .78.8-2.92-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.6-6.16c-.25-.13-1.48-.73-1.7-.81-.23-.09-.4-.13-.56.13-.17.25-.64.8-.79.97-.14.16-.29.18-.54.06-.25-.13-1.060-.39-2.02-1.25-.75-.66-1.25-1.48-1.4-1.73-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.44-.06-.13-.56-1.36-.77-1.86-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.43 1.03 2.6.13.17 1.77 2.7 4.290 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.48-.6 1.69-1.19.21-.58.21-1.080.14-1.19-.06-.1-.23-.16-.48-.29Z"/></svg>';
+  const wa=CONFIG.whatsappRsvp.replace(/\D/g,'');
+  const msg='Olá! 💍 Gostaria de confirmar minha presença no casamento de Thayná e Cleveson, dia 13/12/2026.\n\nNome(s): ';
+  document.getElementById('rsvpAction').innerHTML=
+    '<a class="btn-fill btn-wa" href="https://wa.me/'+wa+'?text='+encodeURIComponent(msg)+'" target="_blank" rel="noopener">'+waIcon+'Confirmar presença</a>';
+})();
+
+/* ─── MÚSICA (YouTube oculto) ─── */
+const musicToggle=document.getElementById('musicToggle');
+let player=null, playerReady=false, wantPlay=false, playing=false;
+(function(){const s=document.createElement('script');s.src='https://www.youtube.com/iframe_api';document.head.appendChild(s);})();
+window.onYouTubeIframeAPIReady=function(){
+  player=new YT.Player('ytPlayer',{
+    width:1,height:1,videoId:CONFIG.youtubeId,
+    playerVars:{autoplay:0,controls:0,loop:1,playlist:CONFIG.youtubeId,playsinline:1,rel:0},
+    events:{
+      onReady:()=>{playerReady=true;player.setVolume(85);if(wantPlay)player.playVideo();},
+      onStateChange:e=>setPlaying(e.data===YT.PlayerState.PLAYING)
+    }
+  });
+};
+function setPlaying(p){
+  playing=p;musicToggle.classList.toggle('playing',p);
+  document.getElementById('iconPlay').style.display=p?'none':'block';
+  document.getElementById('iconPause').style.display=p?'block':'none';
+}
+function playMusic(){wantPlay=true;if(playerReady)player.playVideo();}
+musicToggle.addEventListener('click',()=>{
+  if(!playerReady)return;
+  if(playing){wantPlay=false;player.pauseVideo();}else playMusic();
+});
+
+/* ─── SPLASH: folhas e pétalas caindo ─── */
+(function(){
+  const c=document.getElementById('leaves');
+  const cols=['#7C8552','#A9B38A','#55603A','#CDD3B1','#C99B8C','#EBD6CC'];
+  for(let i=0;i<24;i++){
+    const s=document.createElement('div');s.className='leaf-fall';
+    const sz=6+Math.random()*9, petal=i%3===2;
+    s.style.cssText='width:'+sz+'px;height:'+(petal?sz:sz*1.6)+'px;left:'+(Math.random()*100)+'%;top:'+(-12-Math.random()*15)+'%;background:'+cols[i%cols.length]+';border-radius:'+(petal?'50% 0 50% 50%':'0 80% 0 80%')+';animation-duration:'+(6+Math.random()*7)+'s;animation-delay:'+(Math.random()*6)+'s;';
+    c.appendChild(s);
+  }
+})();
+
+/* ─── SPLASH dismiss ─── */
+document.getElementById('splash').addEventListener('click',function(){
+  playMusic();
+  this.classList.add('hide');
+  setTimeout(()=>{
+    this.style.display='none';
+    document.getElementById('main').classList.add('visible');
+    musicToggle.style.display='flex';
+    window.scrollTo(0,0);
+    initReveal(); startCountdown();
+  },950);
+},{once:true});
+
+/* ─── REVEAL ─── */
+function initReveal(){
+  const obs=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting)e.target.classList.add('visible');}),{threshold:.12});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+}
+
+/* ─── COUNTDOWN ─── */
+function startCountdown(){
+  const target=new Date(CONFIG.dataEvento);const pad=n=>String(n).padStart(2,'0');
+  let t;
+  function upd(){
+    const diff=target-new Date();
+    if(diff<=0){
+      clearInterval(t);
+      document.querySelector('#countdown .cd-wrap').innerHTML='<p style="font-family:Bodoni Moda,serif;font-style:italic;font-size:26px;color:var(--olive);width:100%;text-align:center">É hoje! Que Deus abençoe este dia</p>';
+      return;
+    }
+    document.getElementById('cd-d').textContent=pad(Math.floor(diff/864e5));
+    document.getElementById('cd-h').textContent=pad(Math.floor(diff%864e5/36e5));
+    document.getElementById('cd-m').textContent=pad(Math.floor(diff%36e5/6e4));
+    document.getElementById('cd-s').textContent=pad(Math.floor(diff%6e4/1e3));
+  }
+  upd();t=setInterval(upd,1000);
+}
+</script>
+</body>
+</html>
