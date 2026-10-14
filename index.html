@@ -51,6 +51,7 @@
     display:flex;align-items:center;gap:calc(var(--ms,170px)*.02);transform:translateY(2%);
   }
   .mono-letters .amp{font-family:'Bodoni Moda',serif;font-style:italic;font-size:.42em;color:var(--olive);margin:0 .08em;}
+  .mono-img{position:relative;width:62%;height:auto;}
   .splash-mono{--ms:min(62vw,240px);opacity:0;animation:fadeUp 1s .25s forwards;}
   .footer-mono{--ms:150px;margin:0 auto 14px;}
 
@@ -270,7 +271,7 @@
   <div class="splash-inner">
     <div class="mono splash-mono" role="img" aria-label="Thayná & Cleveson">
       <div class="mono-ring"><svg class="wreath" data-wreath viewBox="0 0 200 200"></svg>
-        <span class="mono-letters">T<span class="amp">&amp;</span>C</span></div>
+        <img class="mono-img" src="midia/monograma.png" alt=""></div>
     </div>
     <p class="splash-names" id="splashNames"></p>
     <p class="splash-date" id="splashDate"></p>
@@ -404,7 +405,7 @@
   <footer>
     <div class="mono footer-mono" role="img" aria-label="Thayná & Cleveson">
       <div class="mono-ring"><svg class="wreath" data-wreath viewBox="0 0 200 200"></svg>
-        <span class="mono-letters">T<span class="amp">&amp;</span>C</span></div>
+        <img class="mono-img" src="midia/monograma.png" alt=""></div>
     </div>
     <p class="footer-date" id="footerDate"></p>
     <p class="footer-note">"...a mão do Senhor fez isto." · Isaías 41:20</p>
@@ -449,8 +450,8 @@ const CONFIG = {
   // lista de presentes
   presentesLink: 'https://casamento-ps53.listaideal.com.br/pt',
 
-  // 📱 WhatsApp para confirmação (apenas dígitos: 55 + DDD + número)
-  whatsappRsvp: '5583986377558'   // (83) 98637-7558
+  // 📱 link de confirmação de presença (WhatsApp)
+  rsvpLink: 'https://wa.link/0yjvfq'
 };
 
 /* ════════════════════════════════════════════════════════════
@@ -517,10 +518,8 @@ const MANUAL = [
 /* ─── Confirmação de presença (WhatsApp) ─── */
 (function(){
   const waIcon='<svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2a10 10 0 0 0-8.5 15.3L2 22l4.8-1.5A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.16l-.3-.18-3 .78.8-2.92-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.6-6.16c-.25-.13-1.48-.73-1.7-.81-.23-.09-.4-.13-.56.13-.17.25-.64.8-.79.97-.14.16-.29.18-.54.06-.25-.13-1.060-.39-2.02-1.25-.75-.66-1.25-1.48-1.4-1.73-.14-.25-.02-.39.11-.51.11-.11.25-.29.37-.43.13-.14.17-.25.25-.41.08-.17.04-.31-.02-.44-.06-.13-.56-1.36-.77-1.86-.2-.48-.41-.42-.56-.43h-.48c-.17 0-.44.06-.67.31-.23.25-.88.86-.88 2.1 0 1.24.9 2.43 1.03 2.6.13.17 1.77 2.7 4.290 3.79.6.26 1.07.41 1.43.53.6.19 1.15.16 1.58.1.48-.07 1.48-.6 1.69-1.19.21-.58.21-1.080.14-1.19-.06-.1-.23-.16-.48-.29Z"/></svg>';
-  const wa=CONFIG.whatsappRsvp.replace(/\D/g,'');
-  const msg='Olá! 💍 Gostaria de confirmar minha presença no casamento de Thayná e Cleveson, dia 13/12/2026.\n\nNome(s): ';
   document.getElementById('rsvpAction').innerHTML=
-    '<a class="btn-fill btn-wa" href="https://wa.me/'+wa+'?text='+encodeURIComponent(msg)+'" target="_blank" rel="noopener">'+waIcon+'Confirmar presença</a>';
+    '<a class="btn-fill btn-wa" href="'+CONFIG.rsvpLink+'" target="_blank" rel="noopener">'+waIcon+'Confirmar presença</a>';
 })();
 
 /* ─── MÚSICA (YouTube oculto) ─── */
